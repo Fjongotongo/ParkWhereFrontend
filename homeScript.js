@@ -1,9 +1,9 @@
-const baseUrl = "indsæt api"
+const baseUrl = "http://localhost:5166/api/parkwhere"
 
 Vue.createApp({
     data(){
         return{
-            parkingSpotAmountWest: 97,
+            parkingSpotAmountWest: null,
             parkingSpotAmountSouth: 22,
             parkingSpotAmountNorth: 140,
 
@@ -15,11 +15,14 @@ Vue.createApp({
         async getParkingSpotAmount(){
             try {
                 response = await axios.get(baseUrl)
-                this.parkingSpotAmount = response.data //skal rettes når api er klar
+                this.parkingSpotAmountWest = response.data //skal rettes når api er klar
             }
             catch {
                 alert(ex.message)
             }
         },
+    },
+    mounted(){
+        this.getParkingSpotAmount()
     }
 }).mount("#app")
