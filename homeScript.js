@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:5166/api/parkwhere"
+const baseUrl = "https://parkwhererest20251203132035-gdh2hyd0c9ded8ah.germanywestcentral-01.azurewebsites.net/api/parkwhere"
 
 Vue.createApp({
     data(){
