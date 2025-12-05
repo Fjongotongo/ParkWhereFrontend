@@ -4,8 +4,6 @@ Vue.createApp({
     data(){
         return{
             parkingSpotAmountWest: null,
-            parkingSpotAmountSouth: 22,
-            parkingSpotAmountNorth: 140,
 
             latestUpdate: "14:30"
         }

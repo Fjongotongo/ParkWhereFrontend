@@ -56,54 +56,6 @@
             </div>
         </div>
 
-        <div class="container d-flex justify-content-center flex-nowrap" style="margin-bottom: 50px;">
-            <div class="row h-100">
-                <div class="col-6 p-0">
-                    <img src="Images/zealandPark.png" alt="ZealandPark">
-                </div>
-                <div class="col-6 justify-content-center" style="background-color: #F4ECEC">
-                    <p style="text-align: center;" class="mt-5">Latest update: {{ latestUpdate }}</p>
-                    <h1 style="text-align: center;">P-South parking <br> spots free: <br></h1>
-
-                    <h1 v-if="parkingSpotAmountSouth <= 100 && parkingSpotAmountSouth >= 31" style="text-align: center; color: orange">{{ parkingSpotAmountSouth }}</h1>
-                    <h1 v-if="parkingSpotAmountSouth <= 30" style="text-align: center; color: red">{{ parkingSpotAmountSouth }}</h1>
-                    <h1 v-if="parkingSpotAmountSouth <= 140 && parkingSpotAmountSouth > 100" style="text-align: center; color: green">{{ parkingSpotAmountSouth }}</h1>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="container d-flex justify-content-center flex-nowrap" style="margin-bottom: 50px;">
-            <div class="row h-100">
-                <div class="col-6 p-0">
-                   <img src="Images/zealandPark.png" alt="ZealandPark">
-                   <!---- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d736.6661466758419!2d12.07700657732765!3d55.630855698122154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46525fdd57cbf297%3A0xd464f030d9a81f8!2sZealand%20-%20Sj%C3%A6llands%20Erhvervsakademi!5e0!3m2!1sda!2sdk!4v1764231210086!5m2!1sda!2sdk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-                </div>
-                <div class="col-6 justify-content-center" style="background-color: #F4ECEC">
-                    <p style="text-align: center;" class="mt-5">Latest update: {{ latestUpdate }}</p>
-                    <h1 style="text-align: center;">P-North parking <br> spots free: <br></h1>
-
-                    <h1 v-if="parkingSpotAmountNorth <= 100 && parkingSpotAmountNorth >= 31" style="text-align: center; color: orange">{{ parkingSpotAmountNorth }}</h1>
-                    <h1 v-if="parkingSpotAmountNorth <= 30" style="text-align: center; color: red">{{ parkingSpotAmountNorth }}</h1>
-                    <h1 v-if="parkingSpotAmountNorth <= 140 && parkingSpotAmountNorth > 100" style="text-align: center; color: green">{{ parkingSpotAmountNorth }}</h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid">
-            <ul class="navbar-nav flex-column flex-sm-row mb-2">
-                <li class="nav-item"><a class="nav-link fs-5 px-3" href="home.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link fs-5 px-3" href="parkPlan.html">ParkPlan</a></li>
-                <li class="nav-item"><a class="nav-link fs-5 px-3" href="statistics.html">Statistics</a></li>
-            </ul>   
-        </div>
-
-
-        <footer>
-            <div class="container-fluid">
-                <h2 class="mt-5">ParkWhere</h2>
-            </div>
-        </footer>
     </div>
 
     <script src="homeScript.js"></script>
