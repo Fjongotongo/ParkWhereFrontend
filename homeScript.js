@@ -1,26 +1,42 @@
-const baseUrl = "https://parkwhererest20251203132035-gdh2hyd0c9ded8ah.germanywestcentral-01.azurewebsites.net/api/parkwhere"
+const baseUrl = "https://parkwhererest20251203132035-gdh2hyd0c9ded8ah.germanywestcentral-01.azurewebsites.net/api/parkwhere";
 
 Vue.createApp({
-    data(){
-        return{
+    data() {
+        return {
             parkingSpotAmountWest: null,
+            latestUpdate: null,
+            intervalId: null
+        };
+    },
 
-            latestUpdate: "14:30"
+    methods: {
+        async getParkingSpotAmount() {
+            try {
+                const response = await axios.get(baseUrl);
+                this.parkingSpotAmountWest = response.data; // update based on API
+                // Update timestamp immediately after fetching
+                this.latestUpdate = new Date().toLocaleTimeString('en-GB', {
+                hour12: false,      // 24-hour format
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+             });
+            } catch (ex) {
+                console.error("Error fetching parking spots:", ex.message);
+            }
         }
     },
 
-    methods:{
-        async getParkingSpotAmount(){
-            try {
-                response = await axios.get(baseUrl)
-                this.parkingSpotAmountWest = response.data //skal rettes når api er klar
-            }
-            catch {
-                alert(ex.message)
-            }
-        },
+    mounted() {
+        // Fetch immediately
+        this.getParkingSpotAmount();
+        
+        this.intervalId = setInterval(() => {
+            this.getParkingSpotAmount();
+        });
     },
-    mounted(){
-        this.getParkingSpotAmount()
+
+    beforeUnmount() {
+        clearInterval(this.intervalId);
     }
-}).mount("#app")
+}).mount("#app");
