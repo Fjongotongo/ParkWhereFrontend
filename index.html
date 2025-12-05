@@ -49,9 +49,9 @@
                     <p style="text-align: center;" class="mt-5">Latest update: {{ latestUpdate }}</p>
                     <h1 style="text-align: center;">P-West parking <br> spots free: <br></h1>
 
-                    <h1 v-if="parkingSpotAmountWest <= 100 && parkingSpotAmountWest >= 31" style="text-align: center; color: orange">{{ parkingSpotAmountWest }}</h1>
-                    <h1 v-if="parkingSpotAmountWest <= 30" style="text-align: center; color: red">{{ parkingSpotAmountWest }}</h1>
-                    <h1 v-if="parkingSpotAmountWest <= 140 && parkingSpotAmountWest > 100" style="text-align: center; color: green">{{ parkingSpotAmountWest }}</h1>
+                    <h1 v-if="parkingSpotAmountWest <= 10" style="text-align: center; color: red">{{ parkingSpotAmountWest }}</h1>
+                    <h1 v-if="parkingSpotAmountWest > 10 && parkingSpotAmountWest < 50" style="text-align: center; color: orange">{{ parkingSpotAmountWest }}</h1>
+                    <h1 v-if="parkingSpotAmountWest >= 50 " style="text-align: center; color: green">{{ parkingSpotAmountWest }}</h1>
                 </div>
             </div>
         </div>
