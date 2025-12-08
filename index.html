@@ -15,10 +15,10 @@
 </head>
 <body>
     <div id="app">
-        <div>
+        <div style="background-color: black;">
             <nav class="navbar navbar-expand-md">
                 <div class="container-fluid">
-                    <a class="navbar-brand fs-3" style="font-weight: bold;" href="index.html">ParkWhere</a>
+                    <a class="navbar-brand fs-3" style="font-weight: bold; color:white" href="index.html">ParkWhere</a>
 
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -28,9 +28,11 @@
 
                     <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                         <ul class="navbar-nav right mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link fs-5" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link fs-5" href="parkPlan.html">ParkPlan</a></li>
-                            <li class="nav-item"><a class="nav-link fs-5" href="statistics.html">Statistics</a></li>
+                            <li class="nav-item"><a class="nav-link fs-5" style="color:yellow" href="index.html">Home</a></li>
+                            <li class="nav-item nav-link fs-5" style="color:yellow">|</li>
+                            <li class="nav-item"><a class="nav-link fs-5" style="color:yellow" href="parkPlan.html">ParkPlan</a></li>
+                            <li class="nav-item nav-link fs-5" style="color:yellow">|</li>
+                            <li class="nav-item"><a class="nav-link fs-5" style="color:yellow" href="statistics.html">Statistics</a></li>
                         </ul>   
                     </div>
                 </div>
@@ -43,17 +45,19 @@
         </div>
 
         <div class="container d-flex justify-content-center flex-nowrap" style="margin-bottom: 50px;">
-            <div class="row h-100">
+            <div class="row h-100 shadow-lg">
                 <div class="col-6 p-0">
                     <img src="Images/zealandPark.png" alt="ZealandPark">
                 </div>
-                <div class="col-6 justify-content-center" style="background-color: #F4ECEC">
-                    <p style="text-align: center;" class="mt-5">Latest update: {{ latestUpdate }}</p>
-                    <h1 style="text-align: center;">P-West parking <br> spots free: <br></h1>
+                <div class="col-6 text-center shadow-lg" style="background-color: black">
+                    <p style="text-align: center; color:white;" class="mt-5">Latest update: {{ latestUpdate }}</p>
+                    <h1 style="text-align: center; color:white;">P-West parking <br> spots free: <br></h1>
+                    <div class="border border-secondary rounded-pill d-inline-block px-4" style="background-color:white;">
+                        <h1 v-if="parkingSpotAmountWest == 0" style="text-align: center; color: red">{{ parkingSpotAmountWest }} / 100</h1>
+                        <h1 v-if="parkingSpotAmountWest >= 1 && parkingSpotAmountWest < 75" style="text-align: center; color: orange">{{ parkingSpotAmountWest }} / 100</h1>
+                        <h1 v-if="parkingSpotAmountWest >= 75 " style="text-align: center; color: green">{{ parkingSpotAmountWest }} / 100</h1>
+                    </div>
 
-                    <h1 v-if="parkingSpotAmountWest == 0" style="text-align: center; color: red">{{ parkingSpotAmountWest }} / 100</h1>
-                    <h1 v-if="parkingSpotAmountWest >= 1 && parkingSpotAmountWest < 75" style="text-align: center; color: orange">{{ parkingSpotAmountWest }} / 100</h1>
-                    <h1 v-if="parkingSpotAmountWest >= 75 " style="text-align: center; color: green">{{ parkingSpotAmountWest }} / 100</h1>
                 </div>
             </div>
         </div>
