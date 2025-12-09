@@ -6,3 +6,72 @@
 .a {
     display: block;
 }
+
+
+*{
+    box-sizing: border-box;
+    padding: 0 ;
+    margin: 0 ;
+}
+
+.map-bg {
+    background-image:url("Images/zealandPark.png");
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 768px) {
+    .map-bg {
+        height: 300px  !important;
+    }
+}
+
+.container {
+    padding: 0px 30px !important;
+    max-width: 1000px !important;
+}
+
+
+.prim-color {
+    color: #fff387 !important;
+}
+
+.navbar-nav .prim-color:hover {
+    color: white !important;
+}
+
+
+.nav-link {
+    padding: 0px;
+}
+
+
+
+@media (min-width: 768px) {
+.nav-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .nav-item:after {
+    margin-left: 10px;
+    margin-right: 10px;
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    background: #fff387;
+    transition: width .3s;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1) !important;
+}
+
+.navbar-nav .nav-item:last-of-type::after {
+    display: none;
+}
+
+}
+

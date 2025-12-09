@@ -10,52 +10,64 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="styling.css" rel="styling">
+    <link href="styling.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <div style="background-color: black;">
-            <nav class="navbar navbar-expand-md">
-                <div class="container-fluid">
-                    <a class="navbar-brand fs-3" style="font-weight: bold; color:white" href="index.html">ParkWhere</a>
 
+        <!-- NAVBAR -->
+        <div id="navbar-placeholder"></div>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
-                        <ul class="navbar-nav right mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link fs-5" style="color:yellow" href="index.html">Home</a></li>
-                            <li class="nav-item nav-link fs-5" style="color:yellow">|</li>
-                            <li class="nav-item"><a class="nav-link fs-5" style="color:yellow" href="parkPlan.html">ParkPlan</a></li>
-                            <li class="nav-item nav-link fs-5" style="color:yellow">|</li>
-                            <li class="nav-item"><a class="nav-link fs-5" style="color:yellow" href="statistics.html">Statistics</a></li>
-                        </ul>   
-                    </div>
-                </div>
-            </nav>
-        </div>
-
+        <!-- PAGE HEADER -->
         <div class="container mb-5 mt-5">
-            <p style="text-align: center;">ParkWhere - Zealand Roskilde</p>
-            <h1 style="text-align: center;">Available parking spots</h1>
+            <p class="text-center">ParkWhere - Zealand Roskilde</p>
+            <h1 class="text-center">Available parking spots</h1>
         </div>
 
-        <div class="container d-flex justify-content-center flex-nowrap" style="margin-bottom: 50px;">
-            <div class="row h-100 shadow-lg">
-                <div class="col-6 p-0">
-                    <img src="Images/zealandPark.png" alt="ZealandPark">
-                </div>
-                <div class="col-6 text-center shadow-lg" style="background-color: black">
-                    <p style="text-align: center; color:white;" class="mt-5">Latest update: {{ latestUpdate }}</p>
-                    <h1 style="text-align: center; color:white;">P-West parking <br> spots free: <br></h1>
-                    <div class="border border-secondary rounded-pill d-inline-block px-4" style="background-color:white;">
-                        <h1 v-if="parkingSpotAmountWest == 0" style="text-align: center; color: red">{{ parkingSpotAmountWest }} / 100</h1>
-                        <h1 v-if="parkingSpotAmountWest >= 1 && parkingSpotAmountWest < 75" style="text-align: center; color: orange">{{ parkingSpotAmountWest }} / 100</h1>
-                        <h1 v-if="parkingSpotAmountWest >= 75 " style="text-align: center; color: green">{{ parkingSpotAmountWest }} / 100</h1>
+        <!-- CONTENT AREA -->
+        <div class="container d-flex justify-content-center flex-nowrap mb-5">
+            <div class="row p-0 w-100 h-100 shadow-lg">
+
+                <!-- MAP AREA -->
+                <div class="col-sm-6 p-0 map-bg" style="height: 400px;"></div>
+
+                <!-- INFO PILL SECTION -->
+                <div class="col-sm-6 text-center shadow-lg p-3 pt-5 pb-5 d-flex align-items-center justify-content-center flex-column" style="background-color: black;">
+                    <p class="text-center text-white">Latest update: {{ latestUpdate }}</p>
+                    <h2 class="text-center text-white mb-4">P-West parking<br>spots free:</h2>
+
+                    <!-- RED -->
+                    <div
+                        v-if="parkingSpotAmountWest == 0"
+                        class="rounded-pill d-inline-block px-5 pt-3 pb-3"
+                        style="background-color:#b52c2c;"
+                    >
+                        <p class="h3 mb-1 text-white text-center">
+                            {{ parkingSpotAmountWest }} / 100
+                        </p>
+                    </div>
+
+                    <!-- ORANGE -->
+                    <div
+                        v-else-if="parkingSpotAmountWest >= 1 && parkingSpotAmountWest < 75"
+                        class="rounded-pill d-inline-block px-5 pt-3 pb-3"
+                        style="background-color:#c97108;"
+                    >
+                        <p class="h3 mb-1 text-white text-center">
+                            {{ parkingSpotAmountWest }} / 100
+                        </p>
+                    </div>
+
+                    <!-- GREEN -->
+                    <div
+                        v-else
+                        class="rounded-pill d-inline-block px-5 pt-3 pb-3"
+                        style="background-color:#479b47;"
+                    >
+                        <p class="h3 mb-1 text-white text-center">
+                            {{ parkingSpotAmountWest }} / 100
+                        </p>
                     </div>
 
                 </div>
@@ -64,6 +76,16 @@
 
     </div>
 
+    <!-- SCRIPTS -->
     <script src="homeScript.js"></script>
+
+    <script>
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+            });
+    </script>
+
 </body>
 </html>
