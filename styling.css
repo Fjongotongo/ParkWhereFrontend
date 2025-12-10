@@ -1,5 +1,5 @@
 
-/* .parking-spot-count-single {
+.parking-spot-count-single {
   font-family: "Bitcount Prop Single", system-ui;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -22,8 +22,25 @@
     "CRSV" 0.5,
     "ELSH" 0,
     "ELXP" 0;
-} */
+} 
 
+
+.parking-spot-container {
+    background: #1e1e1e;
+    background-image: radial-gradient(#353434 3px, transparent 0);
+    background-size: 10px 10px;
+    background-position: 0px 0px;
+    width: 100%;
+    padding: 10px 0px !important;
+    max-width: 250px;
+    border: 4px solid #6f6767;
+}
+
+
+
+.parking-spot-container p {
+    font-weight: 400;
+}
 
 h1 {
     font-weight: 800 !important;
@@ -99,9 +116,9 @@ i {
     padding-right: 10px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 567px) {
     .map-bg {
-        height: 300px  !important;
+        height: 200px  !important;
     }
 }
 
@@ -253,4 +270,35 @@ li.list-group-item {
         top: -10px;
         font-size: 9px;
     }
+
+    
  }
+
+ @media (max-width: 575px) {
+    .parkinglot-container {
+        flex-direction: column-reverse;
+    }
+ }
+
+
+ 
+body {
+    background-image: url('/Images/bg.png');
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    z-index: 0; 
+}
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(0px);
+        background: linear-gradient( to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.95) );
+        z-index: -1;
+        pointer-events: none;
+    }

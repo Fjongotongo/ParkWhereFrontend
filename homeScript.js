@@ -1,4 +1,4 @@
-const baseUrl = "https://parkwhererest20251203132035-gdh2hyd0c9ded8ah.germanywestcentral-01.azurewebsites.net/api/parkwhere";
+const baseUrl = "http://localhost:5166/api/parkwhere";
 
 Vue.createApp({
     data() {
@@ -7,8 +7,8 @@ Vue.createApp({
             latestUpdate: null,
             previousParkingAmount: null,
             timeoutId: null,
-
-            eventsChart: null // chart instance
+            alerted: false,
+            eventsChart: null
         };
     },
 
@@ -16,10 +16,12 @@ Vue.createApp({
         async getParkingSpotAmount() {
             try {
                 const response = await axios.get(baseUrl);
-                const newAmount = response.data;
-
+                
+                // Ensure it's a number
+                const newAmount = Number(response.data);
                 this.parkingSpotAmountWest = newAmount;
 
+                // Update latest update time only when amount changes
                 if (newAmount !== this.previousParkingAmount) {
                     this.latestUpdate = new Date().toLocaleTimeString('en-GB', {
                         hour12: false,
@@ -30,31 +32,45 @@ Vue.createApp({
                     this.previousParkingAmount = newAmount;
                 }
 
-                 if (this.parkingSpotAmountWest < 10 && !this.alerted) {
-                alert(`There are only ${this.parkingSpotAmountWest} parking spots left in the West parking lot!`);
-                this.alerted = true; 
-
+                // Alert when spots are low
+                if (this.parkingSpotAmountWest < 10 && !this.alerted) {
+                    alert(`There are only ${this.parkingSpotAmountWest} parking spots left in the West parking lot!`);
+                    this.alerted = true;
                 } else if (this.parkingSpotAmountWest >= 10) {
-                this.alerted = false; 
-                
-      }
+                    this.alerted = false;
+                }
+
             } catch (ex) {
                 console.error("Error fetching parking spots:", ex.message);
             } finally {
-
-                
+                // Refresh every 2 seconds
                 this.timeoutId = setTimeout(() => {
                     this.getParkingSpotAmount();
                 }, 2000);
             }
-        
-        },
-        mounted() {
+        }
+    },
+
+    // Lifecycle hooks
+    mounted() {
         this.getParkingSpotAmount();
-        this.loadEventsPerHour();   // Load chart once when page loads
     },
 
     beforeUnmount() {
         clearTimeout(this.timeoutId);
+    },
+
+    // Computed property for container color
+    computed: {
+        getParkingColor() {
+            if (this.parkingSpotAmountWest === 0) {
+                return '#b52c2c'; // red
+            } else if (this.parkingSpotAmountWest < 75) {
+                return '#c97108'; // orange
+            } else {
+                return '#3ebb3eff'; // green
+            }
+        }
     }
+
 }).mount("#app");

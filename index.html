@@ -20,8 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -37,50 +36,26 @@
 
         <!-- CONTENT AREA -->
         <div class="container d-flex justify-content-center flex-nowrap mb-5  ">
-            <div class="row p-0 w-100 h-100 shadow-lg ">
+            <div class="row p-0 w-100 h-100 shadow-lg parkinglot-container ">
 
                 <!-- MAP AREA -->
-                <div class="col-sm-6 p-0 map-bg" style="height: 400px;"></div>
+                <div class="col-sm-6 p-0 map-bg" style="background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
 
                 <!-- INFO PILL SECTION -->
-                <div class="col-sm-6 text-center shadow-lg p-3 pt-5 pb-5 d-flex align-items-center justify-content-center flex-column" style="background-color: #121212;">
-                    <p class="text-center text-white">Latest update: {{ latestUpdate }}</p>
-                    <h2 class="text-center text-white mb-4">P-West parking<br>spots available:</h2>
+<div 
+    class="col-sm-6 text-center shadow-lg p-3 pt-5 pb-5 d-flex align-items-center justify-content-center flex-column"
+    :style="{ backgroundColor: getParkingColor }"
+>
+    <p class="text-center text-white">Latest update: {{ latestUpdate }}</p>
+    <h2 class="text-center text-white mb-4">Parking-West</h2>
 
-                    <!-- RED -->
-                    <div
-                        v-if="parkingSpotAmountWest == 0"
-                        class="rounded-pill d-inline-block px-5 pt-3 pb-3"
-                        style="background-color:#b52c2c;"
-                    >
-                        <p class="h3 mb-0 text-white text-center parking-spot-count-double">
-                            {{ parkingSpotAmountWest }} / 100
-                        </p>
-                    </div>
+    <div class="parking-spot-container d-inline-block px-5 pt-3 pb-3">
+        <p class="h3 mb-0 text-center parking-spot-count-single":style="{ color: getParkingColor }">
+            {{ parkingSpotAmountWest }} / 100
+        </p>
+    </div>
+</div>
 
-                    <!-- ORANGE -->
-                    <div
-                        v-else-if="parkingSpotAmountWest >= 1 && parkingSpotAmountWest < 75"
-                        class="rounded-pill d-inline-block px-5 pt-3 pb-3"
-                        style="background-color:#c97108;"
-                    >
-                        <p class="h3 mb-0 text-white text-center parking-spot-count-double">
-                            {{ parkingSpotAmountWest }} / 100
-                        </p>
-                    </div>
-
-                    <!-- GREEN -->
-                    <div
-                        v-else
-                        class="rounded-pill d-inline-block px-5 pt-3 pb-3"
-                        style="background-color:#479b47;"
-                    >
-                        <p id="parkingSpotAmount" class="h3 mb-0 text-white text-center parking-spot-count-double">
-                            {{ parkingSpotAmountWest }} / 100
-                        </p>
-                    </div>
-
-                </div>
             </div>
         </div>
 
