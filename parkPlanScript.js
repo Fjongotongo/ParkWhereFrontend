@@ -1,122 +1,51 @@
 const baseUrl = "http://localhost:5166/api/parkwhere";
 
-// 1. CHART COMPONENT
 const ParkingChart = {
-    props: ['chartData', 'chartLabels', 'chartTitle'],
-    template: `
-        <div style="position: relative; height: 100%; width: 100%;">
-            <canvas ref="chartCanvas"></canvas>
-        </div>
-    `,
-    data() { return { chartInstance: null }; },
-    watch: {
-        chartData: {
-            handler() { this.renderChart(); },
-            deep: true
-        }
+    props: ['config'],
+    template: '<div style="height:100%"><canvas ref="c"></canvas></div>',
+    mounted() { this.draw(); },
+    watch: { 
+        config: { 
+            handler(v) { this.chart ? (this.chart.data = v.data, this.chart.update('none')) : this.draw(); }, 
+            deep: true 
+        } 
     },
-    mounted() { this.renderChart(); },
     methods: {
-        renderChart() {
-            if (this.chartInstance) this.chartInstance.destroy();
-
-            const ctx = this.$refs.chartCanvas.getContext('2d');
-            this.chartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: this.chartLabels,
-                    datasets: [{
-                        label: this.chartTitle,
-                        data: this.chartData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
-                    plugins: { legend: { display: true } }
-                }
-            });
+        draw() {
+            if (this.chart) this.chart.destroy();
+            this.chart = new Chart(this.$refs.c, this.config);
         }
     }
 };
 
-// 2. APP LOGIC
 Vue.createApp({
-    components: {
-        'parking-chart': ParkingChart
-    },
-    data() {
-        return {
-            // Live Counter Data
-            parkingSpotAmountWest: null,
-            latestUpdate: null,
-            previousParkingAmount: null,
-            timeoutId: null,
-
-            // Chart Data
-            viewMode: 'hourly',
-            currentChartData: [],
-            currentLabels: [],
-            currentTitle: 'Vehicles Entered (By Hour)',
-        };
-    },
+    components: { ParkingChart },
+    data: () => ({ count: '...', time: '', mode: 'hourly', config: null, t1: 0, t2: 0 }),
     methods: {
-        // Live Counter
-        async getParkingSpotAmount() {
-            try {
-                const response = await axios.get(baseUrl);
-                const newAmount = Number(response.data);
-                this.parkingSpotAmountWest = newAmount;
-
-                if (newAmount !== this.previousParkingAmount) {
-                    this.latestUpdate = new Date().toLocaleTimeString('en-GB', {
-                        hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'
-                    });
-                    this.previousParkingAmount = newAmount;
-                }
-            } catch (ex) {
-                console.error("Counter Error:", ex.message);
-            } finally {
-                this.timeoutId = setTimeout(() => this.getParkingSpotAmount(), 2000);
-            }
+        async refresh(m = this.mode) {
+            this.mode = m;
+            const hr = m === 'hourly';
+            
+            const { data } = await axios.get(`${baseUrl}/GetAmountStartParkingEach${hr?'Hour':'Day'}`);
+            
+            this.config = {
+                type: 'bar',
+                data: {
+                    labels: hr ? Array.from({length:24},(_,i)=>i+':00') : "Mon,Tue,Wed,Thu,Fri,Sat,Sun".split(','),
+                    datasets: [{ label: `Vehicles (${m})`, data, backgroundColor: '#36a2eb', borderRadius: 4 }]
+                },
+                options: { maintainAspectRatio: false, scales: {y:{beginAtZero:true}}, animation: false }
+            };
         },
-
-        // Chart Data
-        async loadHourlyData() {
-            try {
-                const response = await axios.get(baseUrl + "/GetAmountStartParkingEachHour");
-                this.currentChartData = response.data;
-                this.currentLabels = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0') + ":00");
-                this.currentTitle = "Vehicles Entered (By Hour)";
-                this.viewMode = 'hourly';
-            } catch (error) { console.error(error); }
-        },
-
-        async loadDailyData() {
-            try {
-                const response = await axios.get(baseUrl + "/GetAmountStartParkingEachDay");
-                this.currentChartData = response.data;
-                this.currentLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-                this.currentTitle = "Vehicles Entered (By Day)";
-                this.viewMode = 'daily';
-            } catch (error) { console.error(error); }
-        },
-
-        switchView(mode) {
-            if (mode === 'hourly') this.loadHourlyData();
-            else this.loadDailyData();
+        async tick() {
+            const { data } = await axios.get(baseUrl);
+            if (this.count !== data) { this.count = data; this.time = new Date().toLocaleTimeString('en-GB'); }
         }
     },
     mounted() {
-        this.getParkingSpotAmount();
-        this.loadHourlyData(); 
+        this.tick(); this.refresh();
+        this.t1 = setInterval(this.tick, 2000);    
+        this.t2 = setInterval(this.refresh, 2000);
     },
-    beforeUnmount() {
-        clearTimeout(this.timeoutId);
-    }
+    beforeUnmount() { clearInterval(this.t1); clearInterval(this.t2); }
 }).mount("#app");
