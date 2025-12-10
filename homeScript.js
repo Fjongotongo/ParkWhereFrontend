@@ -47,7 +47,7 @@ Vue.createApp({
                     this.getParkingSpotAmount();
                 }, 2000);
             }
-        },
+        
         },
         mounted() {
         this.getParkingSpotAmount();
