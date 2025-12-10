@@ -29,9 +29,20 @@ Vue.createApp({
                     });
                     this.previousParkingAmount = newAmount;
                 }
+
+                 if (this.parkingSpotAmountWest < 10 && !this.alerted) {
+                alert(`There are only ${this.parkingSpotAmountWest} parking spots left in the West parking lot!`);
+                this.alerted = true; 
+
+                } else if (this.parkingSpotAmountWest >= 10) {
+                this.alerted = false; 
+                
+      }
             } catch (ex) {
                 console.error("Error fetching parking spots:", ex.message);
             } finally {
+
+                
                 this.timeoutId = setTimeout(() => {
                     this.getParkingSpotAmount();
                 }, 2000);

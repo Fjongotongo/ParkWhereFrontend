@@ -1,4 +1,42 @@
 
+.parking-spot-count-single {
+  font-family: "Bitcount Prop Single", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 40px;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0;
+}
+
+.parking-spot-count-double {
+  
+  font-family: "Bitcount Grid Double", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 40px;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0;
+}
+
+
+h1 {
+    font-weight: 800 !important;
+}
+
+h2 {
+    font-weight: 700 !important;
+}
+
+.navbar a {
+    font-weight: 700;
+}
+
 .li {
     float: left;
 }
@@ -15,7 +53,7 @@
 }
 
 .map-bg {
-    background-image:url("Images/zealandPark.png");
+    background-image:url("Images/parkeringsyd.png");
     background-size: cover;
     background-position: center;
 }
@@ -75,3 +113,45 @@
 
 }
 
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+        position: relative;
+        top: -20px;
+		opacity: 0;
+	}
+	100% {
+        position: relative;
+        top: 0px;
+		opacity: 1;
+	}
+}
+
+body {
+    background-image: url('/Images/bg.png');
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    z-index: 0; 
+}
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(0px);
+        background: linear-gradient( to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.95) );
+        z-index: -1;
+        pointer-events: none;
+    }
