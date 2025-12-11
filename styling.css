@@ -269,8 +269,12 @@ li.list-group-item {
         left: -30px;
         top: -10px;
         font-size: 9px;
+
     }
 
+    .nav-item{
+        margin-top: 0.5rem;
+    }
     
  }
 
