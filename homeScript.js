@@ -2,7 +2,8 @@ const baseUrl = "https://parkwhererest20251203132035-gdh2hyd0c9ded8ah.germanywes
 
 Vue.createApp({
     data() {
-@@ -7,51 +7,38 @@ Vue.createApp({
+        return {
+            parkingSpotAmountWest: null,
             latestUpdate: null,
             previousParkingAmount: null,
             timeoutId: null,
@@ -54,7 +55,8 @@ Vue.createApp({
     mounted() {
         this.getParkingSpotAmount();
     },
-@@ -60,17 +47,11 @@ Vue.createApp({
+
+    beforeUnmount() {
         clearTimeout(this.timeoutId);
     },
 
