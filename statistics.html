@@ -31,7 +31,7 @@
         <div class="col-sm-5 text-center p-3 pt-5 pb-5 d-flex align-items-center justify-content-center flex-column">
   <div class="p-3 text-center mb-0 cars-counter">
         <h4 class="mb-1">Total Cars in Database: </h4>
-        <h3>{{ stats.totalCars }}</h3>
+        <h3 id="totalAmountCars">{{ stats.totalCars }}</h3>
     </div>
 </div>
 <div class="col-sm-7 px-0 list-container">
@@ -45,10 +45,10 @@
    <div class="cars-table">
   <!-- Data rows -->
   <li v-for="car in stats.topModels" :key="car.brand + car.model" class="list-group-item d-flex table-info">
-    <div class="col text-start">{{ capitalizeWords(car.brand) }}</div>
-    <div class="col text-start">{{ capitalizeWords(car.model) }}</div>
+    <div class="col text-start" id="carBrand">{{ capitalizeWords(car.brand) }}</div>
+    <div class="col text-start" id="carModel">{{ capitalizeWords(car.model) }}</div>
     <div class="col text-end">
-      <span class="">{{ car.count }}</span>
+      <span class="" id="carCount">{{ car.count }}</span>
     </div>
   </li>
   </div>
