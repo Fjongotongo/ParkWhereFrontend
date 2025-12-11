@@ -46,7 +46,6 @@
     class="col-sm-6 text-center shadow-lg p-3 pt-5 pb-5 d-flex align-items-center justify-content-center flex-column"
     :style="{ backgroundColor: getParkingColor }"
 >
-    <p class="text-center text-white">Latest update: {{ latestUpdate }}</p>
     <h2 class="text-center text-white mb-4">Parking-West</h2>
 
     <div class="parking-spot-container d-inline-block px-5 pt-3 pb-3">
@@ -54,6 +53,8 @@
             {{ parkingSpotAmountWest }} / 100
         </p>
     </div>
+
+    <p class="text-center text-white mt-2">Latest update: {{ latestUpdate }}</p>
 </div>
 
             </div>
